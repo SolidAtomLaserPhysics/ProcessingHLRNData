@@ -32,7 +32,7 @@ if __name__ == "__main__":
                     file['parameters']['mu'] = u/2
                     file['parameters']['p'] = p
                     file['parameters']['L'] = l
-                    f = open("/home/hhpnhytt/configFiles/testConfigs/b{}_p{}_l{}/config_U{}_mu{}.toml".format(beta, p, l, u, u/2),'w')           #opens the toml file
+                    f = open("/home/hhpnhytt/configFiles/testConfigs/b{}_p{}_l{}/config_U{}_mu{}.toml".format(beta, p, l, u, u/2),'w+')           #opens the toml file
                     toml.dump(file, f)                                                                              #writes into toml file
                     f.close()
 
