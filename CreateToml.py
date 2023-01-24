@@ -15,8 +15,7 @@ if __name__ == "__main__":
 
 
 
-    directorySource = "/home/hhpnhytt/tests"
-    directoryRefined = "/home/hhpnhytt/refined"
+
 
 
     P = [1]
@@ -33,7 +32,7 @@ if __name__ == "__main__":
                     file['parameters']['mu'] = u/2
                     file['parameters']['p'] = p
                     file['parameters']['L'] = l
-                    f = open("/home/hhpnhytt/configFiles/testConfigs/b{}_p{}_l{}/config_U{}_mu{}.toml".format(beta, p, l, u, mu),'w')           #opens the toml file
+                    f = open("/home/hhpnhytt/configFiles/testConfigs/b{}_p{}_l{}/config_U{}_mu{}.toml".format(beta, p, l, u, u/2),'w')           #opens the toml file
                     toml.dump(data, f)                                                                              #writes into toml file
                     f.close()
 
