@@ -24,7 +24,7 @@ def readOccupancy(name):
 Now save double occupancy and its U and Beta in a file
 '''
 def writeOccupancy(name, beta, U, mu, p, l, occupancy):
-    with open(name, 'a') as file:                                           #'a' is useful to append a line to a file instead of substituting it
+    with open(name, 'a+') as file:                                           #'a' is useful to append a line to a file instead of substituting it
         file.write("{},{},{},{},{},{}".format(beta, U, mu, p, l, occupancy))
         file.write("\n")                                                    #going to the next line
 
