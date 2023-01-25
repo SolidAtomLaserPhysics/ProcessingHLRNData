@@ -66,6 +66,9 @@ if __name__ == "__main__":
         for p in P:
             for l in L:
                 for u in U:
+                    if not os.path.exists(directoryRefined + "/tests/b{}_p{}_L{}/)".format(beta, p, l)):                            #make sure path for Sigma files exist
+                        os.makedirs(directoryRefined + "/tests/b{}_p{}_L{}/)".format(beta, p, l))
+                    #actual reading and writing    
                     occupancy = readOccupancy(directorySource + "/b{}_U{}_mu{}_p{}_L{}/ed_dmft/run.out".format(beta, u, u/2, p, l))
                     writeOccupancy(directoryRefined + "/tests/occupancies_b{}_p{}_L{}.txt".format(beta, p, l), beta, u, u/2, p, l, occupancy)
                     Matsubara, Real, Imag = readSigma(directorySource + "/b{}_U{}_mu{}_p{}_L{}/ed_dmft/self-en_wim".format(beta, u, u/2, p, l))
