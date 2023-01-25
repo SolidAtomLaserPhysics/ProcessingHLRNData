@@ -68,6 +68,6 @@ if __name__ == "__main__":
                 for u in U:
                     occupancy = readOccupancy(directorySource + "/b{}_U{}_mu{}_p{}_L{}/ed_dmft/run.out".format(beta, u, u/2, p, l))
                     writeOccupancy(directoryRefined + "/tests/occupancies_b{}_p{}_L{}.txt".format(beta, p, l), beta, u, u/2, p, l, occupancy)
-                    Matsubara, Real, Imag = readSigma(directorySource + "/b{}_U{}_mu{}_p{}_L{}/ed_dmft/self-en_vim".format(beta, u, u/2, p, l))
+                    Matsubara, Real, Imag = readSigma(directorySource + "/b{}_U{}_mu{}_p{}_L{}/ed_dmft/self-en_wim".format(beta, u, u/2, p, l))
                     writeSigma(directoryRefined + "/tests/SigmaValues_b{}_U{}_mu{}_p{}_L{}.txt".format(beta, u, u/2, p, l))
 
