@@ -119,7 +119,7 @@ if __name__ == "__main__":
         for beta in Beta:
             for p in P:
                 for l in L:
-                    smallDataFrame = DataFrame.loc[(DataFrame['L'] == l) and (DataFrame['Beta'] == beta)  and (DataFrame['P'] == p)]            #
+                    smallDataFrame = DataFrame.loc[(DataFrame['L'] == l) & (DataFrame['Beta'] == beta)  & (DataFrame['P'] == p)]            #select only the rows where these conditions hold true, & is and
                     PlotOccupancy(targetDirectory, smallDataFrame, beta, p, l)
 
 
