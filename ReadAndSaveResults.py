@@ -1,6 +1,7 @@
 import numpy as np
 import os
 import math
+import pandas as pd
 
 
 
@@ -19,35 +20,16 @@ def readOccupancy(name):
     return occupancy
 
 
-
 '''
-Now save double occupancy and its U and Beta in a file
+Now save double occupancy and its U and Beta and so on in a dataframe
 '''
-def writeOccupancy(name, beta, U, mu, p, l, occupancy):
-    with open(name, 'a+') as file:                                           #'a' is useful to append a line to a file instead of substituting it
-        file.write("{},{},{},{},{},{}".format(beta, U, mu, p, l, occupancy))
-        file.write("\n")                                                    #going to the next line
-
+def addOccupancy(oldFrame, beta, u, mu, p, l, occupancy):
+    newData = {'u': u, 'mu':mu, 'Beta': beta, 'p': p, 'L': l, 'double occupancies':occupancy}
+    outputFrame = pd.DataFrame(data = newData)
+    return pd.contact([oldFrame, outputFrame], ignore_index=True)
 
 
-'''
-Read out the Data, which consists of the Sigma in dependence of Matsubara frequency
-'''
-def readSigma(name):
-    dataToRead = np.loadtxt(name)
-    MatsubaraFreq = dataToRead[:, 0]
-    RealPart = dataToRead[:, 1]
-    ImagPart = dataToRead[:, 2]
-    return MatsubaraFreq, RealPart, ImagPart
 
-'''
-Write Data again in nicer format
-'''
-def writeSigma(name, MatsubaraFreq, RealPart, ImagPart):
-    dataToWrite = np.zeros((len(MatsubaraFreq), 3))
-    for i in range(len(MatsubaraFreq)):
-        dataToWrite[i] = [MatsubaraFreq[i], RealPart[i], ImagPart[i]]
-    np.savetxt(name, dataToWrite)
 
 
 
@@ -61,16 +43,15 @@ if __name__ == "__main__":
     P = [1]
     L = [3]
     Beta = [30.0]
-    U = [1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0, 3.2, 3.4, 3.6, 3.8, 4.0]
+    U = range(1.0, 4.0, 0.2)  
+    categories = {'u': [], 'mu': [], 'Beta': [], 'p': [], 'L': [], 'double occupancies': []}
+    Frame = pd.DataFrame(data = categories)
     for beta in Beta:
         for p in P:
             for l in L:
                 for u in U:
-                    if not os.path.exists(directoryRefined + "/tests/b{}_p{}_L{}/)".format(beta, p, l)):                            #make sure path for Sigma files exist
-                        os.makedirs(directoryRefined + "/tests/b{}_p{}_L{}/)".format(beta, p, l))
                     #actual reading and writing    
                     occupancy = readOccupancy(directorySource + "/b{}_U{}_mu{}_p{}_L{}/ed_dmft/run.out".format(beta, u, u/2, p, l))
-                    writeOccupancy(directoryRefined + "/tests/occupancies_b{}_p{}_L{}.txt".format(beta, p, l), beta, u, u/2, p, l, occupancy)
-                    Matsubara, Real, Imag = readSigma(directorySource + "/b{}_U{}_mu{}_p{}_L{}/ed_dmft/self-en_wim".format(beta, u, u/2, p, l))
-                    writeSigma(directoryRefined + "/tests/b{}_p{}_L{}/SigmaValues_b{}_U{}_mu{}_p{}_L{}.txt".format(beta, p, l, beta, u, u/2, p, l), Matsubara, Real, Imag)
+                    Frame = addOccupancy(Frame, directoryRefined + "/tests/occupancies".format(beta, p, l), beta, u, u/2, p, l, occupancy)
+    Frame.to_csv(directoryRefined + "/tests/occupancies.csv", mode = 'w+')
 
