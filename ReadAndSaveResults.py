@@ -43,7 +43,8 @@ if __name__ == "__main__":
     P = [1]
     L = [3]
     Beta = [30.0]
-    U = np.arange(1.0, 4.0, 0.2)  
+    #U = np.arange(1.0, 4.1, 0.2)  
+    U = [1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0, 3.2, 3.4, 3.6, 3.8, 4.0]
     categories = {'u': [], 'mu': [], 'Beta': [], 'p': [], 'L': [], 'double occupancies': []}
     Frame = pd.DataFrame(data = categories)
     for beta in Beta:
