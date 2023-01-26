@@ -117,7 +117,7 @@ if __name__ == "__main__":
     DataFrame = pd.read_csv(sourceDirectory + '/tests/occupancies.csv')                         #load saved Dataframe
     for u in U:
         for beta in Beta:
-            for p in p:
+            for p in P:
                 for l in L:
                     smallDataFrame = DataFrame.loc[(DataFrame['L'] == l) and (DataFrame['Beta'] == beta)  and (DataFrame['P'] == p)]            #
                     PlotOccupancy(targetDirectory, smallDataFrame, beta, p, l)
