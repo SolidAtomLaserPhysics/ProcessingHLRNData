@@ -126,7 +126,7 @@ if __name__ == "__main__":
 
 
 
-                    Matsubara, Real, Imag = readSigma(sourceDirectory + "/b{}_U{}_mu{}_p{}_L{}/self-en_wim".format(beta, u, u/2, p, l))
+                    Matsubara, Real, Imag = readSigma(sourceDirectory + "/b{}_U{}_mu{}_p{}_L{}/ed_dmft/self-en_wim".format(beta, u, u/2, p, l))
                     PlotSigma(Matsubara, Imag, targetDirectory + "/tests/b{}_p{}_L{}/ImagSigmaPlot_b{}_U{}_mu{}_p{}_L{}.png".format(beta, p, l, beta, u, u/2, p, l))
 
 
