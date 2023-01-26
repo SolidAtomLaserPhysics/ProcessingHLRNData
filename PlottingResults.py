@@ -15,6 +15,25 @@ P = [1]
 L = [3]
 
 
+
+
+'''
+do the plotting of Double Occupancy with matplotlib
+'''
+def PlotOccupancy(targetDirectory, DataFrame, beta, p, l):
+                plt.plot(DataFrame.loc[:, 'U'], DataFrame.loc[:, 'Double Occupancies'], label = r'$\beta = {}, p = {}, L = {}$'.format(beta, p, l), marker = '+')
+                plt.xlabel("U")
+                plt.ylabel(r'$<n_{i \uparrow} n_{i \downarrow}>$')
+                plt.legend()
+                plt.savefig(targetDirectory  + "/tests/occupanciesPlot_b{}_p{}_l{}.png".format(beta, p, l))
+                plt.clf()
+
+
+
+
+
+
+
  
 '''
 Read out Sigma from our file
@@ -37,23 +56,6 @@ def PlotSigma(Matsubara, Imag, name):
     plt.ylabel(r'Im($\Sigma$)')
     plt.savefig(name)
     plt.clf()
-
-'''
-do the plotting of Double Occupancy with matplotlib
-'''
-def PlotOccupancy(targetDirectory, DataFrame, beta, p, l):
-                plt.plot(DataFrame.loc[:, 'U'], DataFrame.loc[:, 'Double Occupancies'], label = r'$\beta = {}, p = {}, L = {}$'.format(beta, p, l), marker = '+')
-                plt.xlabel("U")
-                plt.ylabel(r'$<n_{i \uparrow} n_{i \downarrow}>$')
-                plt.legend()
-                plt.savefig(targetDirectory  + "/tests/occupanciesPlot_b{}_p{}_l{}.png".format(beta, p, l))
-                plt.clf()
-
-
-
-
-
-
 
 
 
@@ -111,7 +113,7 @@ def PlotZerosSigma(U, Beta):
 Main part 
 '''
 if __name__ == "__main__":
-    sourceDirectory = "/home/hhpnhytt/refined"
+    sourceDirectory = "/home/hhpnhytt/tests"
     targetDirectory = "/home/hhpnhytt/refined"
 
     DataFrame = pd.read_csv(sourceDirectory + '/tests/occupancies.csv')                         #load saved Dataframe
@@ -124,8 +126,8 @@ if __name__ == "__main__":
 
 
 
-                    Matsubara, Real, Imag = readSigma(sourceDirectory + "tests/b{}_p{}_L{}/SigmaValues_b{}_U{}_mu{}_p{}_L{}.txt".format(beta, p, L, beta, u, u/2, p, l))
-                    PlotSigma(Matsubara, Imag, sourceDirectory + "tests/b{}_p{}_L{}/ImagSigmaPlot_b{}_U{}_mu{}_p{}_L{}.png".format(beta, p, L, beta, u, u/2, p, l))
+                    Matsubara, Real, Imag = readSigma(sourceDirectory + "/b{}_U{}_mu{}_p{}_L{}/self-en_wim".format(beta, u, u/2, p, l))
+                    PlotSigma(Matsubara, Imag, targetDirectory + "/tests/b{}_p{}_L{}/ImagSigmaPlot_b{}_U{}_mu{}_p{}_L{}.png".format(beta, p, L, beta, u, u/2, p, l))
 
 
     
