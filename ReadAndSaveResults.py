@@ -24,7 +24,7 @@ def readOccupancy(name):
 Now save double occupancy and its U and Beta and so on in a dataframe
 '''
 def addOccupancy(oldFrame, beta, u, mu, p, l, occupancy):
-    newData = {'u': u, 'mu':mu, 'Beta': beta, 'p': p, 'L': l, 'double occupancies':occupancy}
+    newData = {'u': [u], 'mu': [mu], 'Beta': [beta], 'p': [p], 'L': [l], 'double occupancies': [occupancy]}
     outputFrame = pd.DataFrame(data = newData)
     return pd.contact([oldFrame, outputFrame], ignore_index=True)
 
