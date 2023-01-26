@@ -116,7 +116,7 @@ if __name__ == "__main__":
     sourceDirectory = "/home/hhpnhytt/tests"
     targetDirectory = "/home/hhpnhytt/refined"
 
-    DataFrame = pd.read_csv(sourceDirectory + '/tests/occupancies.csv')                         #load saved Dataframe
+    DataFrame = pd.read_csv(targetDirectory + '/tests/occupancies.csv')                         #load saved Dataframe
     for u in U:
         for beta in Beta:
             for p in P:
