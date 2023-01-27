@@ -9,7 +9,7 @@ L = [3, 4]
 Beta = [30.0, 35.0]
 U = [1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0, 3.2, 3.4, 3.6, 3.8, 4.0]                           #starting U, ending U, stepsize
 blueprintConfigPath = "/home/hhpnhytt/configFiles/blueprintConfig.toml"                     #blueprint config, from which you only change that stuff below
-targetPath = "/home/hhpnhytt/configFiles/testConfigs"                                       #where to put the config files
+targetDirectory = "/home/hhpnhytt/configFiles/testConfigs"                                       #where to put the config files
 
 
 if __name__ == "__main__":
@@ -30,7 +30,7 @@ if __name__ == "__main__":
                     startFile['parameters']['L'] = l
 
 
-                    endFile = open(targetPath + "/b{}_p{}_l{}/config_U{}_mu{}.toml".format(beta, p, l, u, u/2),'w+')           #opens the toml file
+                    endFile = open(targetDirectory + "/b{}_p{}_l{}/config_U{}_mu{}.toml".format(beta, p, l, u, u/2),'w+')           #opens the toml file
                     toml.dump(startFile, endFile)                                                                              #writes into toml file
                     endFile.close()
 
