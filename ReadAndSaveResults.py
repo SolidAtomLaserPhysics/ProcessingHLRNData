@@ -36,7 +36,7 @@ def addOccupancy(oldFrame, beta, u, mu, p, l, occupancy):
 
 
 if __name__ == "__main__":
-    directorySource = "/home/hhpnhytt/tests"
+    directorySource = "/home/hhpnhytt/tests/toCompare"
     directoryRefined = "/home/hhpnhytt/refined"
     
 
