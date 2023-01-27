@@ -25,7 +25,7 @@ def PlotOccupancy(targetDirectory, DataFrame, beta, p, l):
                 plt.xlabel("U")
                 plt.ylabel(r'$<n_{i \uparrow} n_{i \downarrow}>$')
                 plt.legend()
-                plt.savefig(targetDirectory  + "/tests/occupanciesPlot_b{}_p{}_l{}.png".format(beta, p, l))
+                plt.savefig(targetDirectory  + "/tests/occupanciesPlot_B{}_P{}_L{}.png".format(beta, p, l))
                 plt.clf()
 
 
@@ -51,7 +51,7 @@ def readSigma(name):
 do the plotting of Sigma with matplotlib
 '''
 def PlotSigma(Matsubara, Imag, name):
-    plt.plot(Matsubara[:50], Imag[:50])                             #only plot until Matsubara frequency is the 20s value to see more structure
+    plt.plot(Matsubara[:20], Imag[:20])                             #only plot until Matsubara frequency is the 20s value to see more structure
     plt.xlabel(r'$\omega$')
     plt.ylabel(r'Im($\Sigma$)')
     plt.savefig(name)
@@ -116,20 +116,20 @@ if __name__ == "__main__":
     sourceDirectory = "/home/hhpnhytt/tests"
     targetDirectory = "/home/hhpnhytt/refined"
 
-    DataFrame = pd.read_csv(targetDirectory + '/tests/occupancies.csv')                         #load saved Dataframe
+    DataFrame = pd.read_csv(targetDirectory + '/tests/occupancies_toCompare.csv')                         #load saved Dataframe
     for u in U:
         for beta in Beta:
             for p in P:
                 for l in L:
-                    if not os.path.exists(targetDirectory + "/tests/b{}_p{}_L{}/".format(beta, p, l)):                                  #make directory if not exists already
-                        os.makedirs(targetDirectory + "/tests/b{}_p{}_L{}/".format(beta, p, l))
+                    if not os.path.exists(targetDirectory + "/tests/B{}_P{}_L{}/".format(beta, p, l)):                                  #make directory if not exists already
+                        os.makedirs(targetDirectory + "/tests/B{}_P{}_L{}/".format(beta, p, l))
                     smallDataFrame = DataFrame.loc[(DataFrame['L'] == l) & (DataFrame['Beta'] == beta)  & (DataFrame['P'] == p)]            #select only the rows where these conditions hold true, & is and
                     PlotOccupancy(targetDirectory, smallDataFrame, beta, p, l)
 
 
 
-                    Matsubara, Real, Imag = readSigma(sourceDirectory + "/b{}_U{}_mu{}_p{}_L{}/ed_dmft/self-en_wim".format(beta, u, u/2, p, l))
-                    PlotSigma(Matsubara, Imag, targetDirectory + "/tests/b{}_p{}_L{}/ImagSigmaPlot_b{}_U{}_mu{}_p{}_L{}.png".format(beta, p, l, beta, u, u/2, p, l))
+                    #Matsubara, Real, Imag = readSigma(sourceDirectory + "/B{}_U{}_Mu{}_P{}_L{}/ed_dmft/self-en_wim".format(beta, u, u/2, p, l))
+                    #PlotSigma(Matsubara, Imag, targetDirectory + "/tests/B{}_P{}_L{}/ImagSigmaPlot_B{}_U{}_Mu{}_P{}_L{}.png".format(beta, p, l, beta, u, u/2, p, l))
 
 
     
