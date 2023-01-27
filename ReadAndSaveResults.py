@@ -51,7 +51,7 @@ if __name__ == "__main__":
             for l in L:
                 for u in U:
                     #actual reading and writing    
-                    occupancy = readOccupancy(directorySource + "/b{}_U{}_mu{}_p{}_L{}/ed_dmft/run.out".format(beta, u, u/2, p, l))
+                    occupancy = readOccupancy(directorySource + "/B{}_U{}_Mu{}_P{}_L{}/ed_dmft/run.out".format(beta, u, u/2, p, l))
                     Frame = addOccupancy(Frame, beta, u, u/2, p, l, occupancy)
     Frame.to_csv(directoryRefined + "/tests/occupancies.csv", mode = 'w+')
 

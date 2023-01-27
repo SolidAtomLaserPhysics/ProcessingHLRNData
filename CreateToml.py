@@ -30,7 +30,7 @@ if __name__ == "__main__":
                     startFile['parameters']['L'] = l
 
 
-                    endFile = open(targetDirectory + "/B{}_P{}_L{}/config_U{}_mu{}.toml".format(beta, p, l, u, u/2),'w+')           #opens the toml file
+                    endFile = open(targetDirectory + "/B{}_P{}_L{}/config_U{}_Mu{}.toml".format(beta, p, l, u, u/2),'w+')           #opens the toml file
                     toml.dump(startFile, endFile)                                                                              #writes into toml file
                     endFile.close()
 
