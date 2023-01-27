@@ -14,12 +14,12 @@ if __name__ == "__main__":
     sourceDirectory = "/home/hhpnhytt/configFiles"
     wrapperDirectory = "/home/hhpnhytt/lDGAPythonWrapper"
 
-    os.system("cd" + wrapperDirectory)                                                      #open the Wrapper directory with runscript in it 
+    #os.system("cd" + wrapperDirectory)                                                      #open the Wrapper directory with runscript in it 
     for beta in Beta:
         for p in P:
             for l in L:
                 for u in U:  
-                    os.system("python3 " + "runscript.py " + sourceDirectory + "/testConfigs/B{}_P{}_L{}/config_U{}_Mu{}.toml".format(beta, p, l, u, u/2))
+                    os.system("python3 " + wrapperDirectory + "/runscript.py " + sourceDirectory + "/testConfigs/B{}_P{}_L{}/config_U{}_Mu{}.toml".format(beta, p, l, u, u/2))
 
 
 
