@@ -40,9 +40,9 @@ if __name__ == "__main__":
     directoryRefined = "/home/hhpnhytt/refined"
     
 
-    P = [1]
-    L = [3]
-    Beta = [30.0]
+    P = [1, 5]
+    L = [3, 4]
+    Beta = [30.0, 35.0]
     U = [1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0, 3.2, 3.4, 3.6, 3.8, 4.0]
     categories = {'U': [], 'Mu': [], 'Beta': [], 'P': [], 'L': [], 'Double Occupancies': []}
     Frame = pd.DataFrame(data = categories)
