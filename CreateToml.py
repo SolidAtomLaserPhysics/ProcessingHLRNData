@@ -18,8 +18,8 @@ if __name__ == "__main__":
         for p in P:
             for l in L:
                 for u in U:
-                    if not os.path.exists(targetDirectory + "/b{}_p{}_L{}/".format(beta, p, l)):                                  #make directory if not exists already
-                        os.makedirs(targetDirectory + "/b{}_p{}_L{}/".format(beta, p, l))
+                    if not os.path.exists(targetDirectory + "/B{}_P{}_L{}/".format(beta, p, l)):                                  #make directory if not exists already
+                        os.makedirs(targetDirectory + "/B{}_P{}_L{}/".format(beta, p, l))
                     startFile = toml.load(blueprintConfigPath)                             #opens and loads the toml file
                     
                     #lines you want to change in the config.toml
@@ -30,7 +30,7 @@ if __name__ == "__main__":
                     startFile['parameters']['L'] = l
 
 
-                    endFile = open(targetDirectory + "/b{}_p{}_l{}/config_U{}_mu{}.toml".format(beta, p, l, u, u/2),'w+')           #opens the toml file
+                    endFile = open(targetDirectory + "/B{}_P{}_L{}/config_U{}_mu{}.toml".format(beta, p, l, u, u/2),'w+')           #opens the toml file
                     toml.dump(startFile, endFile)                                                                              #writes into toml file
                     endFile.close()
 
