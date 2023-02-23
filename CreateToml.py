@@ -35,7 +35,7 @@ if __name__ == "__main__":
                             startFile['parameters']['L'] = l
                             startFile['parameters']['Ksteps'] = steps
                             startFile['parameters']['Ns'] = ns
-                            startFile['parameters']['symm'] = symm
+                            startFile['parameters']['Symm'] = symm
                         
                             #lines we have to add as well to fit what the Wrapper wants
                             startFile['ED']['ksteps'] = steps
