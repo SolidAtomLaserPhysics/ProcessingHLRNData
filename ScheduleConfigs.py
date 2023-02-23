@@ -4,10 +4,13 @@ import toml
 
 
 #the values yoe want to iterate over
-P = [1, 5]
-L = [3, 4]
-Beta = [30.0, 35.0]
-U = [1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0, 3.2, 3.4, 3.6, 3.8, 4.0]                           #starting U, ending U, stepsize
+P = [1]
+L = [3]
+Beta = [30.0]
+U = [2.0]                           #starting U, ending U, stepsize
+KSteps = [30, 50, 70, 100, 150, 200, 300]
+Ns = [5, 6, 7]
+symm = False
 
 
 if __name__ == "__main__":
@@ -18,9 +21,10 @@ if __name__ == "__main__":
     for beta in Beta:
         for p in P:
             for l in L:
-                for u in U:  
-                    os.system("python3 " + wrapperDirectory + "/runscript.py " + sourceDirectory + "/testConfigs/B{}_P{}_L{}/config_U{}_Mu{}.toml".format(beta, p, l, u, u/2))
-
+                for u in U:
+                    for steps in KSteps:
+                        for ns in Ns:
+                            os.system("python3 " + wrapperDirectory + "/runscript.py " + sourceDirectory + "/testConfigs/B{}_P{}_L{}_steps{}_Ns{}_symm{}/config_U{}_Mu{}.toml".format(beta, p, l, steps, ns, symm, u, u/2))
 
 
 
