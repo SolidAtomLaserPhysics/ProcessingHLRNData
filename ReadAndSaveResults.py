@@ -34,34 +34,23 @@ def addOccupancy(oldFrame, beta, u, mu, p, l, steps, ns, symm, occupancy):
     return pd.concat([oldFrame, outputFrame], ignore_index=True)
 
 
-
-
-
-
-
-
-if __name__ == "__main__":
-    directorySource = "/home/hhpnhytt/tests/toCompareKSteps"                            #change for different types of calculations
-    directoryRefined = "/home/hhpnhytt/refined"
-    
-
-    P = [1]
-    L = [3]
-    Beta = [30.0]
-    U = [2.0]
-    Ns = [5]
-    Ksteps = [100]
-    symm = True
+'''
+Brings together reading and saving the Double Occupancy
+'''
+def saveDoubleOccupancyToUse(Beta, U, P, L, KSteps, Ns, Symm, directoryRawDataSource, directoryRefined):
     categories = {'U': [], 'Mu': [], 'Beta': [], 'P': [], 'L': [], 'Double Occupancies': []}
     Frame = pd.DataFrame(data = categories)
     for beta in Beta:
         for p in P:
             for l in L:
                 for u in U:
-                    for steps in Ksteps:
+                    for steps in KSteps:
                         for ns in Ns:
-                            #actual reading and writing    
-                            occupancy = readOccupancy(directorySource + "/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/run.out".format(beta, u, u/2, p, l, steps, ns, symm))
-                            Frame = addOccupancy(Frame, beta, u, u/2, p, l, steps, ns, symm, occupancy)
-    Frame.to_csv(directoryRefined + "/tests/occupancies_toCompareKsteps.csv", mode = 'w+')
+                            for symm in Symm:
+                                #actual reading and writing    
+                                occupancy = readOccupancy(directoryRawDataSource + "/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/run.out".format(beta, u, u/2, p, l, steps, ns, symm))
+                                Frame = addOccupancy(Frame, beta, u, u/2, p, l, occupancy)
+    Frame.to_csv(directoryRefined + "/tests/occupancies_toCompareKsteps.csv", mode = 'w+')    
+
+
 
