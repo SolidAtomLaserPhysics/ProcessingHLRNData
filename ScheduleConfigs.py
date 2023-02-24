@@ -10,7 +10,7 @@ Beta = [30.0]
 U = [2.0]                           #starting U, ending U, stepsize
 KSteps = [30, 50, 70, 100, 150, 200, 300]
 Ns = [5, 6, 7]
-symm = False
+symm = True
 
 
 if __name__ == "__main__":

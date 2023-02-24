@@ -12,7 +12,7 @@ KSteps = [30, 50, 70, 100, 150, 200, 300]
 Ns = [5, 6, 7]
 blueprintConfigPath = "/home/hhpnhytt/configFiles/blueprintConfig.toml"                     #blueprint config, from which you only change that stuff below
 targetDirectory = "/home/hhpnhytt/configFiles/testConfigs"                                       #where to put the config files
-symm = False
+symm = True
 
 if __name__ == "__main__":
 

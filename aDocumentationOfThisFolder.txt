@@ -1,1 +1,4 @@
 This folder contains some helper programmes to process and schedule data on the HLRN
+
+status now
+It contains new variables like Ns and Ksteps as well and all work fine

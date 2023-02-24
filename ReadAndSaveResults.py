@@ -62,6 +62,6 @@ if __name__ == "__main__":
                         for ns in Ns:
                             #actual reading and writing    
                             occupancy = readOccupancy(directorySource + "/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/run.out".format(beta, u, u/2, p, l, steps, ns, symm))
-                            Frame = addOccupancy(Frame, beta, u, u/2, p, l, occupancy)
+                            Frame = addOccupancy(Frame, beta, u, u/2, p, l, steps, ns, symm, occupancy)
     Frame.to_csv(directoryRefined + "/tests/occupancies_toCompareKsteps.csv", mode = 'w+')
 
