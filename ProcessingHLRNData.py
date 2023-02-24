@@ -10,7 +10,7 @@ import ReadAndSaveResults as Save
 
 #the values yoe want to iterate over
 P = [1]
-L = [3]
+L = [4]
 Beta = [30.0]
 U = [2.0]                           
 KSteps = [30]

@@ -17,7 +17,7 @@ from mpl_toolkits.mplot3d import Axes3D
 do the plotting of Double Occupancy with matplotlib reading from a DataFrame which was saved before with ReadAndSaveResults.py
 '''
 def PlotOccupancy(directoryRefined, Beta, P, L, KSteps, Ns, Symm):
-    DataFrame = pd.read_csv(directoryRefined + '/tests/occupancies_toCompareKsteps.csv')                         #load saved Dataframe
+    DataFrame = pd.read_csv(directoryRefined + '/tests/DoubleOccupancies/occupancies_toCompareKsteps.csv')                         #load saved Dataframe
     for beta in Beta:
         for p in P:
             for l in L:
@@ -30,7 +30,7 @@ def PlotOccupancy(directoryRefined, Beta, P, L, KSteps, Ns, Symm):
                             plt.xlabel("U")
                             plt.ylabel(r'$<n_{i \uparrow} n_{i \downarrow}>$')
                             plt.legend()
-                            plt.savefig(directoryRefined  + "/tests/occupanciesPlot_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
+                            plt.savefig(directoryRefined  + "/tests/DoubleOccupancies/occupanciesPlot_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
                             plt.clf()
 
 

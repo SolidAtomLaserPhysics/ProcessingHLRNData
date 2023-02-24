@@ -1,4 +1,10 @@
 This folder contains some helper programmes to process and schedule data on the HLRN
 
 status now
-It contains new variables like Ns and Ksteps as well and all work fine
+Also I introduced a Wrapper ProcessingHLRNData.py, which handels all Input Data
+and if Data has to be plotted or created
+Everything works
+
+Missing
+Plotting of Sigma
+Plotting of Asymptotic behaviour

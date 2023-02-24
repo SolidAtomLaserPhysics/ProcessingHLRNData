@@ -47,10 +47,12 @@ def saveDoubleOccupancyToUse(Beta, U, P, L, KSteps, Ns, Symm, directoryRawDataSo
                     for steps in KSteps:
                         for ns in Ns:
                             for symm in Symm:
-                                #actual reading and writing    
+                                #actual reading    
                                 occupancy = readOccupancy(directoryRawDataSource + "/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/run.out".format(beta, u, u/2, p, l, steps, ns, symm))
-                                Frame = addOccupancy(Frame, beta, u, u/2, p, l, occupancy)
-    Frame.to_csv(directoryRefined + "/tests/occupancies_toCompareKsteps.csv", mode = 'w+')    
+                                #adding one line to the DatFrame
+                                Frame = addOccupancy(Frame, beta, u, u/2, p, l, steps, ns, symm, occupancy)
+    #writing all lines to a file
+    Frame.to_csv(directoryRefined + "/tests/DoubleOccupancies/occupancies_toCompareKsteps.csv", mode = 'w+')    
 
 
 
