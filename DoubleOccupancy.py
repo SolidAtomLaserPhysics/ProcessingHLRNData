@@ -34,25 +34,42 @@ def addOccupancy(oldFrame, beta, u, mu, p, l, steps, ns, symm, occupancy):
     return pd.concat([oldFrame, outputFrame], ignore_index=True)
 
 
+
+
+
 '''
-Brings together reading and saving the Double Occupancy
+do the plotting of Double Occupancy with matplotlib
 '''
-def saveDoubleOccupancyToUse(Beta, U, P, L, KSteps, Ns, Symm, directoryRawDataSource, directoryRefined):
+def PlotOccupancy(targetDirectory, DataFrame, beta, p, l, steps, ns, symm):
+                plt.plot(DataFrame.loc[:, 'U'], DataFrame.loc[:, 'Double Occupancies'], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
+                plt.xlabel("U")
+                plt.ylabel(r'$<n_{i \uparrow} n_{i \downarrow}>$')
+                plt.legend()
+                plt.savefig(targetDirectory  + "/tests/occupanciesPlot_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
+                plt.clf()
+
+
+
+
+
+
+
+
+if __name__ == "__main__":
+    directorySource = "/home/hhpnhytt/tests/toCompareKSteps"                            #change for different types of calculations
+    directoryRefined = "/home/hhpnhytt/refined"
+    
+
     categories = {'U': [], 'Mu': [], 'Beta': [], 'P': [], 'L': [], 'Double Occupancies': []}
     Frame = pd.DataFrame(data = categories)
     for beta in Beta:
         for p in P:
             for l in L:
                 for u in U:
-                    for steps in KSteps:
+                    for steps in Ksteps:
                         for ns in Ns:
-                            for symm in Symm:
-                                #actual reading and writing    
-                                occupancy = readOccupancy(directoryRawDataSource + "/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/run.out".format(beta, u, u/2, p, l, steps, ns, symm))
-                                Frame = addOccupancy(Frame, beta, u, u/2, p, l, occupancy)
-    Frame.to_csv(directoryRefined + "/tests/occupancies_toCompareKsteps.csv", mode = 'w+')    
-
-
-
-
+                            #actual reading and writing    
+                            occupancy = readOccupancy(directorySource + "/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/run.out".format(beta, u, u/2, p, l, steps, ns, symm))
+                            Frame = addOccupancy(Frame, beta, u, u/2, p, l, occupancy)
+    Frame.to_csv(directoryRefined + "/tests/occupancies_toCompareKsteps.csv", mode = 'w+')
 
