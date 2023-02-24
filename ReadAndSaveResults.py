@@ -4,6 +4,11 @@ import math
 import pandas as pd
 
 
+'''
+This programm, at the moment, extracts and saves the Double Occupancy for many cases(see arrays below) in a pandas DataFrame
+'''
+
+
 
 '''
 Now read out the out.dat to get double occupancy
@@ -21,10 +26,10 @@ def readOccupancy(name):
 
 
 '''
-Now save double occupancy and its U and Beta and so on in a dataframe
+Now save double occupancy and its U, Beta and so on in a dataframe
 '''
-def addOccupancy(oldFrame, beta, u, mu, p, l, occupancy):
-    newData = {'U': [u], 'Mu': [mu], 'Beta': [beta], 'P': [p], 'L': [l], 'Double Occupancies': [occupancy]}
+def addOccupancy(oldFrame, beta, u, mu, p, l, steps, ns, symm, occupancy):
+    newData = {'U': [u], 'Mu': [mu], 'Beta': [beta], 'P': [p], 'L': [l], 'Ksteps': [steps], 'Ns': [ns], 'Symmetry': [symm], 'Double Occupancies': [occupancy]}
     outputFrame = pd.DataFrame(data = newData)
     return pd.concat([oldFrame, outputFrame], ignore_index=True)
 
@@ -36,22 +41,27 @@ def addOccupancy(oldFrame, beta, u, mu, p, l, occupancy):
 
 
 if __name__ == "__main__":
-    directorySource = "/home/hhpnhytt/tests/toCompare"
+    directorySource = "/home/hhpnhytt/tests/toCompareKSteps"                            #change for different types of calculations
     directoryRefined = "/home/hhpnhytt/refined"
     
 
-    P = [1, 5]
-    L = [3, 4]
-    Beta = [30.0, 35.0]
-    U = [1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0, 3.2, 3.4, 3.6, 3.8, 4.0]
+    P = [1]
+    L = [3]
+    Beta = [30.0]
+    U = [2.0]
+    Ns = [5]
+    Ksteps = [100]
+    symm = True
     categories = {'U': [], 'Mu': [], 'Beta': [], 'P': [], 'L': [], 'Double Occupancies': []}
     Frame = pd.DataFrame(data = categories)
     for beta in Beta:
         for p in P:
             for l in L:
                 for u in U:
-                    #actual reading and writing    
-                    occupancy = readOccupancy(directorySource + "/B{}_U{}_Mu{}_P{}_L{}/ed_dmft/run.out".format(beta, u, u/2, p, l))
-                    Frame = addOccupancy(Frame, beta, u, u/2, p, l, occupancy)
-    Frame.to_csv(directoryRefined + "/tests/occupancies_toCompare.csv", mode = 'w+')
+                    for steps in Ksteps:
+                        for ns in Ns:
+                            #actual reading and writing    
+                            occupancy = readOccupancy(directorySource + "/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/run.out".format(beta, u, u/2, p, l, steps, ns, symm))
+                            Frame = addOccupancy(Frame, beta, u, u/2, p, l, occupancy)
+    Frame.to_csv(directoryRefined + "/tests/occupancies_toCompareKsteps.csv", mode = 'w+')
 

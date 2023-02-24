@@ -9,10 +9,8 @@ import re
 from mpl_toolkits.mplot3d import Axes3D
 
 
-Beta = [30.0, 35.0]
-U = [1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4, 2.6, 2.8, 3.0, 3.2, 3.4, 3.6, 3.8, 4.0]
-P = [1, 5]
-L = [3, 4]
+
+
 
 
 
@@ -20,12 +18,12 @@ L = [3, 4]
 '''
 do the plotting of Double Occupancy with matplotlib
 '''
-def PlotOccupancy(targetDirectory, DataFrame, beta, p, l):
-                plt.plot(DataFrame.loc[:, 'U'], DataFrame.loc[:, 'Double Occupancies'], label = r'$\beta = {}, p = {}, L = {}$'.format(beta, p, l), marker = '+')
+def PlotOccupancy(targetDirectory, DataFrame, beta, p, l, steps, ns, symm):
+                plt.plot(DataFrame.loc[:, 'U'], DataFrame.loc[:, 'Double Occupancies'], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
                 plt.xlabel("U")
                 plt.ylabel(r'$<n_{i \uparrow} n_{i \downarrow}>$')
                 plt.legend()
-                plt.savefig(targetDirectory  + "/tests/occupanciesPlot_B{}_P{}_L{}.png".format(beta, p, l))
+                plt.savefig(targetDirectory  + "/tests/occupanciesPlot_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
                 plt.clf()
 
 
@@ -109,27 +107,51 @@ def PlotZerosSigma(U, Beta):
 
 
 
+
+
+
+
+
+
+
+
 '''
 Main part 
 '''
 if __name__ == "__main__":
-    sourceDirectory = "/home/hhpnhytt/tests"
+    sourceDirectory = "/home/hhpnhytt/tests"                    #maybe we have to change these paths for our case
     targetDirectory = "/home/hhpnhytt/refined"
 
-    DataFrame = pd.read_csv(targetDirectory + '/tests/occupancies_toCompare.csv')                         #load saved Dataframe
-    for u in U:
-        for beta in Beta:
-            for p in P:
-                for l in L:
-                    if not os.path.exists(targetDirectory + "/tests/B{}_P{}_L{}/".format(beta, p, l)):                                  #make directory if not exists already
-                        os.makedirs(targetDirectory + "/tests/B{}_P{}_L{}/".format(beta, p, l))
-                    smallDataFrame = DataFrame.loc[(DataFrame['L'] == l) & (DataFrame['Beta'] == beta)  & (DataFrame['P'] == p)]            #select only the rows where these conditions hold true, & is and
-                    PlotOccupancy(targetDirectory, smallDataFrame, beta, p, l)
+    #the cases we want to print it for
+    P = [1]
+    L = [3]
+    Beta = [30.0]
+    U = [2.0]
+    Ns = [5]
+    Ksteps = [100]
+    symm = True
 
 
 
-                    #Matsubara, Real, Imag = readSigma(sourceDirectory + "/B{}_U{}_Mu{}_P{}_L{}/ed_dmft/self-en_wim".format(beta, u, u/2, p, l))
-                    #PlotSigma(Matsubara, Imag, targetDirectory + "/tests/B{}_P{}_L{}/ImagSigmaPlot_B{}_U{}_Mu{}_P{}_L{}.png".format(beta, p, l, beta, u, u/2, p, l))
+
+
+    DataFrame = pd.read_csv(targetDirectory + '/tests/occupancies_toCompareKsteps.csv')                         #load saved Dataframe
+    for beta in Beta:
+        for p in P:
+            for l in L:
+                for u in U:
+                    for steps in Ksteps:
+                        for ns in Ns:
+                            if not os.path.exists(targetDirectory + "/tests/B{}_P{}_L{}_steps{}_Ns{}_symm{}/".format(beta, p, l, steps, ns, symm)):                                  #make directory if not exists already
+                                os.makedirs(targetDirectory + "/tests/B{}_P{}_L{}_steps{}_Ns{}_symm{}/".format(beta, p, l, steps, ns, symm))
+                            smallDataFrame = DataFrame.loc[(DataFrame['L'] == l) & (DataFrame['Beta'] == beta)  & (DataFrame['P'] == p) & 
+                                                            (DataFrame['Ksteps'] == steps) & (DataFrame['Ns'] == ns) & (DataFrame['Symmetry'] == symm)]            #select only the rows where the conditions of this iteration hold true, & is and
+                            PlotOccupancy(targetDirectory, smallDataFrame, beta, p, l, steps, ns, symm)
+
+
+
+                            #Matsubara, Real, Imag = readSigma(sourceDirectory + "/B{}_U{}_Mu{}_P{}_L{}/ed_dmft/self-en_wim".format(beta, u, u/2, p, l))
+                            #PlotSigma(Matsubara, Imag, targetDirectory + "/tests/B{}_P{}_L{}/ImagSigmaPlot_B{}_U{}_Mu{}_P{}_L{}.png".format(beta, p, l, beta, u, u/2, p, l))
 
 
     
