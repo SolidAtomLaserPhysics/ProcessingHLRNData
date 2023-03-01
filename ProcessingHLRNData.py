@@ -18,7 +18,8 @@ Ns = [5]
 Symm = [False]
 
 calculate = False
-plotDoubleOccupancy = True 
+plotDoubleOccupancy = False 
+plotAsymptotic = True
 
 
 #all paths needed
@@ -43,7 +44,8 @@ if __name__ == "__main__":
         Save.saveDoubleOccupancyToUse(Beta, U, P, L, KSteps, Ns, Symm, directoryRawDataSource, directoryRefined)
         Plot.PlotOccupancy(directoryRefined, Beta, P, L, KSteps, Ns, Symm)
 
-
+    if plotAsymptotic:
+        Plot.hybridFunc(Beta, P, L, U, KSteps, Ns, Symm, directoryRawDataSource, directoryRefined)
 
 
 

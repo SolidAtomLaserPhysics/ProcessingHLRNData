@@ -35,6 +35,26 @@ def PlotOccupancy(directoryRefined, Beta, P, L, KSteps, Ns, Symm):
 
 
 
+'''
+Plot Hybridizationfunction Delta(iv) to look for asymptotic behaviour 
+'''
+def hybridFunc(Beta, P, L, U, KSteps, Ns, Symm, sourceDirectory, targetDirectory):
+    for beta in Beta:
+        for p in P:
+            for l in L:
+                for u in U:
+                    for steps in KSteps:
+                        for ns in Ns:
+                            for symm in Symm:
+                                input = np.genfromtxt(sourceDirectory + '/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/fort.1002'.format(beta, u, u/2, p, l, steps, ns, symm), delimiter=",")
+
+                                print(len(input))
+                                Delta = np.zeros(len(input))
+                                for i in len(input):
+                                    Delta = input[i, 0] + input[i, 2]/(input[i, 1] * input[i, 1] + input[i, 2] * input[i, 2])
+                                print(Delta)
+
+
 
 
 
