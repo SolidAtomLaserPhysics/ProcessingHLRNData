@@ -46,12 +46,11 @@ def hybridFunc(Beta, P, L, U, KSteps, Ns, Symm, sourceDirectory, targetDirectory
                     for steps in KSteps:
                         for ns in Ns:
                             for symm in Symm:
-                                input = np.genfromtxt(sourceDirectory + '/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/fort.1002'.format(beta, u, u/2, p, l, steps, ns, symm), delimiter=",")
+                                input = np.loadtxt(sourceDirectory + '/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/fort.1002'.format(beta, u, u/2, p, l, steps, ns, symm))
 
-                                print(len(input))
                                 Delta = np.zeros(len(input))
-                                for i in len(input):
-                                    Delta = input[i, 0] + input[i, 2]/(input[i, 1] * input[i, 1] + input[i, 2] * input[i, 2])
+                                for i in range(len(input)):
+                                    Delta[i] = input[i, 0] + input[i, 2]/(input[i, 1] * input[i, 1] + input[i, 2] * input[i, 2])
                                 print(Delta)
 
 
