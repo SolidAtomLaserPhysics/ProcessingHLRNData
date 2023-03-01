@@ -42,10 +42,10 @@ if __name__ == "__main__":
     #if True, the double occupancy will be read from the DMFT reults, saved in a DataFrame and plotted
     if plotDoubleOccupancy:
         Save.saveDoubleOccupancyToUse(Beta, U, P, L, KSteps, Ns, Symm, directoryRawDataSource, directoryRefined)
-        Plot.PlotOccupancy(directoryRefined, Beta, P, L, KSteps, Ns, Symm)
+        Plot.plotOccupancy(directoryRefined, Beta, P, L, KSteps, Ns, Symm)
 
     if plotAsymptotic:
-        Plot.hybridFunc(Beta, P, L, U, KSteps, Ns, Symm, directoryRawDataSource, directoryRefined)
+        Plot.plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, directoryRawDataSource, directoryRefined)
 
 
 

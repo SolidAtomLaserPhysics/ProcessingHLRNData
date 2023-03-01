@@ -16,7 +16,7 @@ from mpl_toolkits.mplot3d import Axes3D
 '''
 do the plotting of Double Occupancy with matplotlib reading from a DataFrame which was saved before with ReadAndSaveResults.py
 '''
-def PlotOccupancy(directoryRefined, Beta, P, L, KSteps, Ns, Symm):
+def plotOccupancy(directoryRefined, Beta, P, L, KSteps, Ns, Symm):
     DataFrame = pd.read_csv(directoryRefined + '/tests/DoubleOccupancies/occupancies_toCompareKsteps.csv')                         #load saved Dataframe
     for beta in Beta:
         for p in P:
@@ -38,7 +38,7 @@ def PlotOccupancy(directoryRefined, Beta, P, L, KSteps, Ns, Symm):
 '''
 Plot Hybridizationfunction Delta(iv) to look for asymptotic behaviour 
 '''
-def hybridFunc(Beta, P, L, U, KSteps, Ns, Symm, sourceDirectory, targetDirectory):
+def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, sourceDirectory, targetDirectory):
     for beta in Beta:
         for p in P:
             for l in L:
@@ -49,9 +49,18 @@ def hybridFunc(Beta, P, L, U, KSteps, Ns, Symm, sourceDirectory, targetDirectory
                                 input = np.loadtxt(sourceDirectory + '/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/fort.1002'.format(beta, u, u/2, p, l, steps, ns, symm))
 
                                 Delta = np.zeros(len(input))
+                                x = np.zeros(len(input))
                                 for i in range(len(input)):
                                     Delta[i] = input[i, 0] + input[i, 2]/(input[i, 1] * input[i, 1] + input[i, 2] * input[i, 2])
+                                    x[i] = input[i, 0]
                                 print(Delta)
+
+                                plt.plot(x, Delta, label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
+                                plt.xlabel(r'$i\nu$')
+                                plt.ylabel(r'$\Delta(i\nu)$')
+                                plt.legend()
+                                plt.savefig(targetDirectory  + "/tests/DoubleOccupancies/occupanciesPlot_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
+                                plt.clf()
 
 
 
