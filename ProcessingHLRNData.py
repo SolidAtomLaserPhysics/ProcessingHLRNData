@@ -17,7 +17,7 @@ KSteps = [30, 50, 100, 200, 300]
 Ns = [5, 6, 7]
 Symm = [False, True]
 
-resolutionPointsHybridPlot = 100
+resolutionPointsHybridPlot = 100                                                            #zooming parameter, high means large intervall of i\nu, 0 means only the largest i\nu
 
 
 calculate = False
