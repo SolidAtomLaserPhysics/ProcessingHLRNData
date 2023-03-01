@@ -51,7 +51,7 @@ def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, resolutionPoints, sourceDire
                                 Delta = np.zeros(len(input))                                #to store the hybridization function in
                                 x = np.zeros(len(input))
                                 for i in range(len(input)):
-                                    Delta[i] = input[i, 0] - input[i, 2]           #calculate Delta by i\nu - 1/G_0(i\nu)
+                                    Delta[i] = input[i, 0] * (input[i, 0] - input[i, 2])           #calculate Delta by i\nu - 1/G_0(i\nu)
                                     x[i] = input[i, 0]
 
                                 plt.plot(x[-resolutionPoints:], Delta[-resolutionPoints:], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
