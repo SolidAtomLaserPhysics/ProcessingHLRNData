@@ -59,7 +59,7 @@ def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, sourceDirectory, targetDirec
                                 plt.xlabel(r'$i\nu$')
                                 plt.ylabel(r'$\Delta(i\nu)$')
                                 plt.legend()
-                                plt.savefig(targetDirectory  + "/tests/DoubleOccupancies/occupanciesPlot_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
+                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlot_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
                                 plt.clf()
 
 
