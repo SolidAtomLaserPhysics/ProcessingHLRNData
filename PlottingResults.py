@@ -38,7 +38,7 @@ def plotOccupancy(directoryRefined, Beta, P, L, KSteps, Ns, Symm):
 '''
 Plot Hybridizationfunction Delta(iv) to look for asymptotic behaviour 
 '''
-def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, sourceDirectory, targetDirectory):
+def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, resolutionPoints, sourceDirectory, targetDirectory):
     for beta in Beta:
         for p in P:
             for l in L:
@@ -48,14 +48,13 @@ def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, sourceDirectory, targetDirec
                             for symm in Symm:
                                 input = np.loadtxt(sourceDirectory + '/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/fort.1002'.format(beta, u, u/2, p, l, steps, ns, symm))
 
-                                Delta = np.zeros(len(input))
+                                Delta = np.zeros(len(input))                                #to store the hybridization function in
                                 x = np.zeros(len(input))
                                 for i in range(len(input)):
-                                    Delta[i] = input[i, 0] + input[i, 2]/(input[i, 1] * input[i, 1] + input[i, 2] * input[i, 2])
+                                    Delta[i] = input[i, 0] + input[i, 2]/(input[i, 1] * input[i, 1] + input[i, 2] * input[i, 2])            #calculate Delta by i\nu - 1/G_0(i\nu) = 
                                     x[i] = input[i, 0]
-                                print(Delta)
 
-                                plt.plot(x, Delta, label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
+                                plt.plot(x[(len(x) - resolutionPoints):], Delta[(len(x) - resolutionPoints):], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
                                 plt.xlabel(r'$i\nu$')
                                 plt.ylabel(r'$\Delta(i\nu)$')
                                 plt.legend()

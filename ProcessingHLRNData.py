@@ -17,6 +17,9 @@ KSteps = [30]
 Ns = [5]
 Symm = [False]
 
+resolutionPointsHybridPlot = 100
+
+
 calculate = False
 plotDoubleOccupancy = False 
 plotAsymptotic = True
@@ -45,7 +48,7 @@ if __name__ == "__main__":
         Plot.plotOccupancy(directoryRefined, Beta, P, L, KSteps, Ns, Symm)
 
     if plotAsymptotic:
-        Plot.plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, directoryRawDataSource, directoryRefined)
+        Plot.plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, resolutionPointsHybridPlot, directoryRawDataSource, directoryRefined)
 
 
 
