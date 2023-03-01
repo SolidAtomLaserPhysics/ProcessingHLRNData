@@ -10,11 +10,11 @@ import ReadAndSaveResults as Save
 
 #the values yoe want to iterate over
 P = [1]
-L = [4]
+L = [3]
 Beta = [30.0]
 U = [2.0]                           
-KSteps = [30]
-Ns = [5]
+KSteps = [30, 50, 100, 200, 300]
+Ns = [5, 6, 7]
 Symm = [False]
 
 resolutionPointsHybridPlot = 100
