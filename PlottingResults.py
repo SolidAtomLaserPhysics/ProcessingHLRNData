@@ -46,31 +46,57 @@ def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, resolutionPoints, sourceDire
                     for steps in KSteps:
                         for ns in Ns:
                             for symm in Symm:
-                                #input = np.loadtxt(sourceDirectory + '/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/g0mand'.format(beta, u, u/2, p, l, steps, ns, symm))
-                                input = np.loadtxt(sourceDirectory + '/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/fort.1002'.format(beta, u, u/2, p, l, steps, ns, symm))
+                                input = np.loadtxt(sourceDirectory + '/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/g0mand'.format(beta, u, u/2, p, l, steps, ns, symm))
+                                inputFort = np.loadtxt(sourceDirectory + '/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/fort.1002'.format(beta, u, u/2, p, l, steps, ns, symm))
 
                                 Delta = np.zeros(len(input))                                #to store the hybridization function in
                                 x = np.zeros(len(input))
-                                #for i in range(len(input)):
-                                #    Delta[i] = input[i, 0] * (input[i, 0] - input[i, 2])           #calculate Delta by i\nu - 1/G_0(i\nu)
-                                #    x[i] = input[i, 0]
-
                                 for i in range(len(input)):
-                                    Delta[i] = input[i, 0] * (input[i, 0] + input[i, 2]/(input[i, 1] * input[i, 1] + input[i, 2] * input[i, 2]))           #calculate Delta by i\nu - 1/G_0(i\nu)
+                                    Delta[i] = input[i, 0] * (input[i, 0] - input[i, 2])           #calculate Delta by i\nu - 1/G_0(i\nu)
                                     x[i] = input[i, 0]
+
+                                #Calculate Delta with the fort.1002 file, which probably is another one
+                                DeltaFort = np.zeros(len(inputFort))
+                                for i in range(len(inputFort)):
+                                    DeltaFort[i] = 1.0 + inputFort[i, 0] * (inputFort[i, 0] + inputFort[i, 2]/(inputFort[i, 1] * inputFort[i, 1] + inputFort[i, 2] * inputFort[i, 2]))           #calculate Delta by i\nu - 1/G_0(i\nu)
+                                    x[i] = inputFort[i, 0]
+
+
+
 
                                 plt.plot(x[-resolutionPoints:], Delta[-resolutionPoints:], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
                                 plt.xlabel(r'$i\nu$')
                                 plt.ylabel(r'$\Delta(i\nu)$')
                                 plt.legend()
-                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlot_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
+                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotG0mand_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
+                                plt.clf()
+
+                                plt.plot(x[-resolutionPoints:], DeltaFort[-resolutionPoints:], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
+                                plt.xlabel(r'$i\nu$')
+                                plt.ylabel(r'$\Delta(i\nu)$')
+                                plt.legend()
+                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotFort1002_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
                                 plt.clf()
 
                                 plt.plot(x, Delta, label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
                                 plt.xlabel(r'$i\nu$')
                                 plt.ylabel(r'$\Delta(i\nu)$')
                                 plt.legend()
-                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotFull_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
+                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotFullG0mand_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
+                                plt.clf()
+
+                                plt.plot(x, DeltaFort, label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
+                                plt.xlabel(r'$i\nu$')
+                                plt.ylabel(r'$\Delta(i\nu)$')
+                                plt.legend()
+                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotFullFort_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
+                                plt.clf()
+
+                                plt.plot(x, Delta - DeltaFort, label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
+                                plt.xlabel(r'$i\nu$')
+                                plt.ylabel(r'$\Delta(i\nu)$')
+                                plt.legend()
+                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotDiff_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
                                 plt.clf()
 
 
