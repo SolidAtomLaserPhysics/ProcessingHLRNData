@@ -46,12 +46,12 @@ def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, resolutionPoints, sourceDire
                     for steps in KSteps:
                         for ns in Ns:
                             for symm in Symm:
-                                input = np.loadtxt(sourceDirectory + '/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/fort.1002'.format(beta, u, u/2, p, l, steps, ns, symm))
+                                input = np.loadtxt(sourceDirectory + '/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/g0mand'.format(beta, u, u/2, p, l, steps, ns, symm))
 
                                 Delta = np.zeros(len(input))                                #to store the hybridization function in
                                 x = np.zeros(len(input))
                                 for i in range(len(input)):
-                                    Delta[i] = input[i, 0] + input[i, 2]/(input[i, 1] * input[i, 1] + input[i, 2] * input[i, 2])            #calculate Delta by i\nu - 1/G_0(i\nu) = 
+                                    Delta[i] = input[i, 0] - input[i, 2]           #calculate Delta by i\nu - 1/G_0(i\nu)
                                     x[i] = input[i, 0]
 
                                 plt.plot(x[-resolutionPoints:], Delta[-resolutionPoints:], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
