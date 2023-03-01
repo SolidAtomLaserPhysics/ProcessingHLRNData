@@ -90,16 +90,31 @@ def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, resolutionPoints, sourceDire
                                 plt.xlabel(r'$i\nu$')
                                 plt.ylabel(r'$\Delta(i\nu)$')
                                 plt.legend()
-                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotFullFort_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
+                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotFullFort1002_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
                                 plt.clf()
 
-                                #probably makes not a lot of sense, since x ranges are very different
-                                plt.plot(x[-resolutionPoints:], Delta[-resolutionPoints:] - DeltaFort[-resolutionPoints:], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
-                                plt.xlabel(r'$i\nu$')
-                                plt.ylabel(r'$\Delta(i\nu)$')
-                                plt.legend()
-                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotDiff_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
-                                plt.clf()
+
+                                if symm:                        #only have to do it once
+                                    #Calculate Delta for True
+                                    inputTrue = np.loadtxt(sourceDirectory + '/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/g0mand'.format(beta, u, u/2, p, l, steps, ns, True))
+                                    DeltaTrue = np.zeros(len(inputTrue))                               
+                                    x = np.zeros(len(inputTrue))
+                                    for i in range(len(inputTrue)):
+                                        DeltaTrue[i] = inputTrue[i, 0] * (inputTrue[i, 0] - inputTrue[i, 2])        
+                                        x[i] = inputTrue[i, 0]
+                                    #now calculate the same for False
+                                    inputFalse = np.loadtxt(sourceDirectory + '/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/g0mand'.format(beta, u, u/2, p, l, steps, ns, False))
+                                    DeltaFalse = np.zeros(len(inputFalse))                               
+                                    for i in range(len(inputFalse)):
+                                        DeltaFalse[i] = inputFalse[i, 0] * (inputFalse[i, 0] - inputFalse[i, 2])        
+                                        x[i] = inputFalse[i, 0]
+                                    #Therefore can plot the difference of the True and False plot
+                                    plt.plot(x, DeltaTrue - DeltaFalse, label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = True - False$'.format(beta, p, l, steps, ns), marker = '+')
+                                    plt.xlabel(r'$i\nu$')
+                                    plt.ylabel(r'$\Delta(i\nu)$')
+                                    plt.legend()
+                                    plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotDiffG0mand_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
+                                    plt.clf()
 
 
 
