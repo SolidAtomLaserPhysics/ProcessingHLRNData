@@ -9,29 +9,31 @@ import ReadAndSaveResults as Save
 
 
 #the values yoe want to iterate over
-P = [1]
-L = [3]
+P = [0, 1]
+L = [1, 3]
 Beta = [30.0]
-U = [2.0]                           
-KSteps = [30, 50, 100, 200, 300]
-Ns = [5, 6, 7]
+U = [1.0, 2.0, 3.0]                           
+KSteps = [30, 100, 200, 300]
+Ns = [5, 7]
 Symm = [False, True]
 
 resolutionPointsHybridPlot = 100                                                            #zooming parameter, high means large intervall of i\nu, 0 means only the largest i\nu
 
 
-calculate = False
+calculate = True
 plotDoubleOccupancy = False 
-plotAsymptotic = True
+plotAsymptotic = False
 
 
 #all paths needed
 blueprintConfigPath = "/home/hhpnhytt/configFiles/blueprintConfig.toml"                     #blueprint config, from which you only change that stuff below
-configTargetDirectory = "/home/hhpnhytt/configFiles/testConfigs"                                       #where to put the config files
-configSourceDirectory = "/home/hhpnhytt/configFiles/testConfigs"                                        #where we had our config files
+configTargetDirectory = "/home/hhpnhytt/configFiles/testConfigsKStepsFullMatrix"                                       #where to put the config files
+configSourceDirectory = "/home/hhpnhytt/configFiles/testConfigsKStepsFullMatrix"                                        #where we had our config files
+
 wrapperDirectory = "/home/hhpnhytt/lDGAPythonWrapper"
-directoryRawDataSource = "/home/hhpnhytt/tests/toCompareKSteps"                            #change for different types of calculations
-directoryRefined = "/home/hhpnhytt/refined"
+
+directoryRawDataSource = "/home/hhpnhytt/tests/toCompareKStepsFullMatrix"                            #change for different types of calculations
+directoryRefined = "/home/hhpnhytt/refined/toCompareKStepsFullMatrix"
 
 
 
