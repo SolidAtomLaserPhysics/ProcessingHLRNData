@@ -62,7 +62,7 @@ def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, resolutionPoints, sourceDire
                                 DeltaFort = np.zeros(len(inputFort))
                                 xFort = np.zeros(len(inputFort))
                                 for i in range(len(inputFort)):
-                                    DeltaFort[i] = inputFort[i, 0] * (inputFort[i, 0] + inputFort[i, 2]/(inputFort[i, 1] * inputFort[i, 1] + inputFort[i, 2] * inputFort[i, 2]))    &    #calculate Delta by i\nu - 1/G_0(i\nu)
+                                    DeltaFort[i] = inputFort[i, 0] * (inputFort[i, 0] + inputFort[i, 2]/(inputFort[i, 1] * inputFort[i, 1] + inputFort[i, 2] * inputFort[i, 2]))      #calculate Delta by i\nu - 1/G_0(i\nu)   \
                                     - inputFort[i, 0] * (u*1/2) - u*u * 1/2 * (1 - 1/2)    
                                     xFort[i] = inputFort[i, 0]
 
