@@ -9,11 +9,11 @@ import ReadAndSaveResults as Save
 
 
 #the values yoe want to iterate over
-P = [0, 1]
-L = [1, 3]
+P = [1]
+L = [3]
 Beta = [30.0]
-U = [1.0, 2.0, 3.0]                           
-KSteps = [30, 100, 200, 300]
+U = [1.0]                           
+KSteps = [100, 121]
 Ns = [5, 7]
 Symm = [False, True]
 
@@ -32,7 +32,7 @@ configSourceDirectory = "/home/hhpnhytt/configFiles/testConfigsKStepsFullMatrix"
 
 wrapperDirectory = "/home/hhpnhytt/lDGAPythonWrapper"
 
-directoryRawDataSource = "/home/hhpnhytt/tests/toCompareKStepsFullMatrix"                            #change for different types of calculations
+directoryRawDataSource = "/scratch/usr/hhpnhytt/tests/toCompareKStepsFullMatrix"                            #Raw Data always lies in SCRATCH, change for different types of calculations
 directoryRefined = "/home/hhpnhytt/refined/toCompareKStepsFullMatrix"
 
 
