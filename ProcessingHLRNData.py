@@ -51,6 +51,7 @@ if __name__ == "__main__":
 
     if plotAsymptotic:
         Plot.plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, resolutionPointsHybridPlot, directoryRawDataSource, directoryRefined)
+        Plot.plotGreens(Beta, P, L, U, KSteps, Ns, Symm, directoryRawDataSource, directoryRefined)
 
 
 
