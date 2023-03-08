@@ -84,7 +84,7 @@ def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, resolutionPoints, sourceDire
                                 xFort = np.zeros(len(inputFort))
                                 for i in range(len(inputFort)):
                                     DeltaFort[i] = - inputFort[i, 0] * (inputFort[i, 0] + inputFort[i, 2]/(inputFort[i, 1] * inputFort[i, 1] + inputFort[i, 2] * inputFort[i, 2]))         \
-                                                   - inputFort[i, 0] * (u*1/2) - u*u * 1/2 * (1 - 1/2)                     #calculate Im(Delta) = i\nu - 1/G_loc(i\nu) - Sigma(i\nu)       n=1 in Sigma for half filling
+                                                   - u*u * 1/2 * (1 - 1/2)                     #calculate Im(Delta) = i\nu - 1/G_loc(i\nu) - Sigma(i\nu)       n=1 in Sigma for half filling
                                     xFort[i] = inputFort[i, 0]
 
                                 plt.plot(xFort[-resolutionPoints:], DeltaFort[-resolutionPoints:], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
@@ -111,7 +111,7 @@ def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, resolutionPoints, sourceDire
                                 xBigFort = np.zeros(len(inputBigFort))
                                 for i in range(len(inputBigFort)):
                                     DeltaBigFort[i] = - inputBigFort[i, 0] * (inputBigFort[i, 0] + inputBigFort[i, 2]/(inputBigFort[i, 1] * inputBigFort[i, 1] + inputBigFort[i, 2] * inputBigFort[i, 2]))         \
-                                                   - inputBigFort[i, 0] * (u*1/2) - u*u * 1/2 * (1 - 1/2)                     #calculate Im(Delta) = i\nu - 1/G_loc(i\nu) - Sigma(i\nu)       n=1 in Sigma for half filling
+                                                      - u*u * 1/2 * (1 - 1/2)                     #calculate Im(Delta) = i\nu - 1/G_loc(i\nu) - Sigma(i\nu)       n=1 in Sigma for half filling
                                     xBigFort[i] = inputBigFort[i, 0]
 
                                 plt.plot(xBigFort[-resolutionPoints:], DeltaBigFort[-resolutionPoints:], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
