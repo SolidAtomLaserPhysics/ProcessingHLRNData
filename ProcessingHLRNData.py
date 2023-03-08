@@ -14,7 +14,7 @@ L = [3, 4]
 Beta = [35.0]
 U = [2.0]                           
 KSteps = [100]
-Ns = [5, 7]
+Ns = [5]
 Symm = [False, True]
 
 resolutionPointsHybridPlot = 100                                                            #zooming parameter, high means large intervall of i\nu, 0 means only the largest i\nu
