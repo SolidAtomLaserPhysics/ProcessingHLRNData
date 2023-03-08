@@ -34,7 +34,7 @@ configSourceDirectory = "/home/hhpnhytt/configFiles/testConfigsKStepsFullMatrix"
 wrapperDirectory = "/home/hhpnhytt/lDGAPythonWrapper"
 
 directoryRawDataSource = "/scratch/usr/hhpnhytt/tests/toCompareKStepsFullMatrix"                            #Raw Data always lies in SCRATCH, change for different types of calculations
-directoryRefined = "/home/hhpnhytt/refined/toCompareKStepsFullMatrix"
+directoryRefined = "/home/hhpnhytt/refined"
 
 
 
