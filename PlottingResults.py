@@ -87,14 +87,15 @@ def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, resolutionPoints, sourceDire
                                                    - u*u * 1/2 * (1 - 1/2)                     #calculate Im(Delta) = i\nu - 1/G_loc(i\nu) - Sigma(i\nu)       n=1 in Sigma for half filling
                                     xFort[i] = inputFort[i, 0]
 
-                                plt.plot(xFort[-resolutionPoints:], DeltaFort[-resolutionPoints:], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
+                                plt.plot(xFort[-resolutionPoints:], DeltaFort[-resolutionPoints:], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm),linewidth=0.1)
                                 plt.xlabel(r'$i\nu$')
                                 plt.ylabel(r'$\Delta(i\nu)$')
                                 plt.legend()
                                 plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotFort1002_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
                                 plt.clf()
 
-                                plt.plot(xFort, DeltaFort, label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
+                                plt.plot(xFort, DeltaFort, label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm),linewidth=0.1)
+                                plt.axhline(y=0.25, color='r', linestyle='-')
                                 plt.xlabel(r'$i\nu$')
                                 plt.ylabel(r'$\Delta(i\nu)$')
                                 plt.legend()
@@ -114,14 +115,15 @@ def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, resolutionPoints, sourceDire
                                                       - u*u * 1/2 * (1 - 1/2)                     #calculate Im(Delta) = i\nu - 1/G_loc(i\nu) - Sigma(i\nu)       n=1 in Sigma for half filling
                                     xBigFort[i] = inputBigFort[i, 0]
 
-                                plt.plot(xBigFort[-resolutionPoints:], DeltaBigFort[-resolutionPoints:], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
+                                plt.plot(xBigFort[-resolutionPoints:], DeltaBigFort[-resolutionPoints:], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm),linewidth=0.1)
                                 plt.xlabel(r'$i\nu$')
                                 plt.ylabel(r'$\Delta(i\nu)$')
                                 plt.legend()
                                 plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotFort2002_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
                                 plt.clf()
 
-                                plt.plot(xBigFort, DeltaBigFort, label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
+                                plt.plot(xBigFort, DeltaBigFort, label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm),linewidth=0.1)
+                                plt.axhline(y=0.25, color='r', linestyle='-')
                                 plt.xlabel(r'$i\nu$')
                                 plt.ylabel(r'$\Delta(i\nu)$')
                                 plt.legend()
