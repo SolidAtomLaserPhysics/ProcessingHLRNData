@@ -20,9 +20,10 @@ Symm = [False, True]
 resolutionPointsHybridPlot = 100                                                            #zooming parameter, high means large intervall of i\nu, 0 means only the largest i\nu
 
 
-calculate = True
+calculate = False
 plotDoubleOccupancy = False 
-plotAsymptotic = False
+plotAsymptotic = True
+plotSelfEnergies = True
 
 
 #all paths needed
@@ -52,6 +53,9 @@ if __name__ == "__main__":
     if plotAsymptotic:
         Plot.plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, resolutionPointsHybridPlot, directoryRawDataSource, directoryRefined)
         Plot.plotGreens(Beta, P, L, U, KSteps, Ns, Symm, directoryRawDataSource, directoryRefined)
+
+    if plotSelfEnergies:
+        Plot.plotSigma(Beta, P, L, U, KSteps, Ns, Symm, directoryRawDataSource, directoryRefined)
 
 
 

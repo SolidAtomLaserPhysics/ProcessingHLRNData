@@ -199,33 +199,51 @@ def plotGreens(Beta, P, L, U, KSteps, Ns, Symm, sourceDirectory, targetDirectory
                                 plt.clf()
 
 
+ 
+'''
+Read out and plot Sigma from our file
+'''
+def plotSigma(Beta, P, L, U, KSteps, Ns, Symm, sourceDirectory, targetDirectory):
+    for beta in Beta:
+        for p in P:
+            for l in L:
+                for u in U:
+                    for steps in KSteps:
+                        for ns in Ns:
+                            for symm in Symm:
+                                dataToRead = np.loadtxt(sourceDirectory + '/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/self-en_wim'.format(beta, u, u/2, p, l, steps, ns, symm))
+                                MatsubaraFreq = dataToRead[:, 0]
+                                RealPart = dataToRead[:, 1]
+                                ImagPart = dataToRead[:, 2]
+                                plt.plot(MatsubaraFreq[:20], ImagPart[:20])                             #only plot until Matsubara frequency is the 20s value to see more structure
+                                plt.xlabel(r'$\omega$')
+                                plt.ylabel(r'Im($\Sigma$)')
+                                plt.savefig(targetDirectory  + "/tests/selfEnergies/SelfEnergies_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
+                                plt.clf()
+                                if symm:
+                                    dataToReadFalse = np.loadtxt(sourceDirectory + '/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/self-en_wim'.format(beta, u, u/2, p, l, steps, ns, symm))
+                                    MatsubaraFreqFalse = dataToReadFalse[:, 0]
+                                    RealPartFalse = dataToReadFalse[:, 1]
+                                    ImagPartFalse = dataToReadFalse[:, 2]
+                                    plt.plot(MatsubaraFreq[:20], ImagPart[:20], label = r'symmetry = True')                         #plot both the values for True and False
+                                    plt.plot(MatsubaraFreqFalse[:20], ImagPartFalse[:20], label = r'symmetry = False')                             
+                                    plt.xlabel(r'$\omega$')
+                                    plt.ylabel(r'Im($\Sigma$)')
+                                    plt.legend()
+                                    plt.savefig(targetDirectory  + "/tests/selfEnergies/SelfEnergiesComparisonTrueFalse_B{}_P{}_L{}_steps{}_Ns{}.png".format(beta, p, l, steps, ns))
+                                    plt.clf()
+
+
+
+
+
+
 '''
 below not used yet
 '''
 
 
- 
-'''
-Read out Sigma from our file
-'''
-def readSigma(name):
-    dataToRead = np.loadtxt(name)
-    MatsubaraFreq = dataToRead[:, 0]
-    RealPart = dataToRead[:, 1]
-    ImagPart = dataToRead[:, 2]
-    return MatsubaraFreq, RealPart, ImagPart
 
-
-
-'''
-do the plotting of Sigma with matplotlib
-'''
-def PlotSigma(Matsubara, Imag, name):
-    plt.plot(Matsubara[:20], Imag[:20])                             #only plot until Matsubara frequency is the 20s value to see more structure
-    plt.xlabel(r'$\omega$')
-    plt.ylabel(r'Im($\Sigma$)')
-    plt.savefig(name)
-    plt.clf()
 
 
 
