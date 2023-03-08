@@ -82,27 +82,27 @@ def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, resolutionPoints, sourceDire
 
 
                                 #Calculate Delta with the fort.1002 file, which only has the frequencies of the first processor, 
-                                # but using self-en_wim instead of th etheoretical value of Sigma
-                                DeltaFortSigma = np.zeros(len(inputFort))
-                                xFortSigma = np.zeros(len(inputFort))
-                                for i in range(len(inputFort)):
-                                    DeltaFortSigma[i] = - inputFort[i, 0] * (inputFort[i, 0] + inputFort[i, 2]/(inputFort[i, 1] * inputFort[i, 1] + inputFort[i, 2] * inputFort[i, 2]))         \
-                                                   - inputFort[i, 0] * inputSigma[i,2]                    #calculate Im(Delta) = i\nu - 1/G_loc(i\nu) - Sigma(i\nu)       n=1 in Sigma for half filling
-                                    xFortSigma[i] = inputFort[i, 0]
+                                # but using self-en_wim instead of the theoretical value of Sigma
+                                DeltaBigFortSigma = np.zeros(len(inputBigFort))
+                                xBigFortSigma = np.zeros(len(inputBigFort))
+                                for i in range(len(inputBigFort)):
+                                    DeltaBigFortSigma[i] = - inputBigFort[i, 0] * (inputBigFort[i, 0] + inputBigFort[i, 2]/(inputBigFort[i, 1] * inputBigFort[i, 1] + inputBigFort[i, 2] * inputBigFort[i, 2]))         \
+                                                      - inputBigFort[i, 0] * inputSigma[i, 2]                    #calculate Im(Delta) = i\nu - 1/G_loc(i\nu) - Sigma(i\nu)       n=1 in Sigma for half filling
+                                    xBigFortSigma[i] = inputBigFort[i, 0]
 
-                                plt.plot(xFortSigma[-resolutionPoints:], DeltaFortSigma[-resolutionPoints:], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm),linewidth=0.5)
+                                plt.plot(xBigFortSigma[-resolutionPoints:], DeltaBigFortSigma[-resolutionPoints:], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm),linewidth=0.5)
                                 plt.xlabel(r'$i\nu$')
                                 plt.ylabel(r'$\Delta(i\nu)$')
                                 plt.legend()
-                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotPartFort1002Sigma_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
+                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotPartFort2002Sigma_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
                                 plt.clf()
 
-                                plt.plot(xFortSigma, DeltaFortSigma, label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm),linewidth=0.5)
+                                plt.plot(xBigFortSigma, DeltaBigFortSigma, label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm),linewidth=0.5)
                                 plt.axhline(y=0.25, color='r', linestyle='-')
                                 plt.xlabel(r'$i\nu$')
                                 plt.ylabel(r'$\Delta(i\nu)$')
                                 plt.legend()
-                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotFullFort1002Sigma_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
+                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotFullFort2002Sigma_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
                                 plt.clf()
 
 
