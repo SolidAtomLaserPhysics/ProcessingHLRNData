@@ -46,40 +46,26 @@ def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, resolutionPoints, sourceDire
                     for steps in KSteps:
                         for ns in Ns:
                             for symm in Symm:
+                                #load files
                                 input = np.loadtxt(sourceDirectory + '/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/g0mand'.format(beta, u, u/2, p, l, steps, ns, symm))
                                 inputFort = np.loadtxt(sourceDirectory + '/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/fort.1002'.format(beta, u, u/2, p, l, steps, ns, symm))
+                                inputBigFort = np.loadtxt(sourceDirectory + '/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/fort.2002'.format(beta, u, u/2, p, l, steps, ns, symm))
                                 
 
+
+
+                                #Calculation of Delta and plotting zoomed in and full of g0mand, which has Gloc AFTER fitting
                                 Delta = np.zeros(len(input))                                #to store the hybridization function in
                                 x = np.zeros(len(input))
                                 for i in range(len(input)):
                                     Delta[i] = input[i, 0] * (input[i, 0] - input[i, 2])           #calculate Delta by i\nu - 1/G_0(i\nu)
                                     x[i] = input[i, 0]
 
-                            
-
-                                #Calculate Delta with the fort.1002 file, which probably is another one
-                                DeltaFort = np.zeros(len(inputFort))
-                                xFort = np.zeros(len(inputFort))
-                                for i in range(len(inputFort)):
-                                    DeltaFort[i] = inputFort[i, 0] * (inputFort[i, 0] + inputFort[i, 2]/(inputFort[i, 1] * inputFort[i, 1] + inputFort[i, 2] * inputFort[i, 2]))      #calculate Delta by i\nu - 1/G_0(i\nu)   \
-                                    - inputFort[i, 0] * (u*1/2) - u*u * 1/2 * (1 - 1/2)    
-                                    xFort[i] = inputFort[i, 0]
-
-
-
                                 plt.plot(x[-resolutionPoints:], Delta[-resolutionPoints:], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
                                 plt.xlabel(r'$i\nu$')
                                 plt.ylabel(r'$\Delta(i\nu)$')
-                                plt.legend()
+                                plt.legend("plot hybridization function after fitting to the Anderson parameters")
                                 plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotG0mand_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
-                                plt.clf()
-
-                                plt.plot(xFort[-resolutionPoints:], DeltaFort[-resolutionPoints:], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
-                                plt.xlabel(r'$i\nu$')
-                                plt.ylabel(r'$\Delta(i\nu)$')
-                                plt.legend()
-                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotFort1002_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
                                 plt.clf()
 
                                 plt.plot(x, Delta, label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
@@ -88,6 +74,25 @@ def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, resolutionPoints, sourceDire
                                 plt.legend()
                                 plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotFullG0mand_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
                                 plt.clf()
+                            
+
+
+
+
+                                #Calculate Delta with the fort.1002 file, which only has the frequencies of the first processor
+                                DeltaFort = np.zeros(len(inputFort))
+                                xFort = np.zeros(len(inputFort))
+                                for i in range(len(inputFort)):
+                                    DeltaFort[i] = - inputFort[i, 0] * (inputFort[i, 0] + inputFort[i, 2]/(inputFort[i, 1] * inputFort[i, 1] + inputFort[i, 2] * inputFort[i, 2]))         \
+                                                   - inputFort[i, 0] * (u*1/2) - u*u * 1/2 * (1 - 1/2)                     #calculate Im(Delta) = i\nu - 1/G_loc(i\nu) - Sigma(i\nu)       n=1 in Sigma for half filling
+                                    xFort[i] = inputFort[i, 0]
+
+                                plt.plot(xFort[-resolutionPoints:], DeltaFort[-resolutionPoints:], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
+                                plt.xlabel(r'$i\nu$')
+                                plt.ylabel(r'$\Delta(i\nu)$')
+                                plt.legend()
+                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotFort1002_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
+                                plt.clf()
 
                                 plt.plot(xFort, DeltaFort, label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
                                 plt.xlabel(r'$i\nu$')
@@ -98,30 +103,36 @@ def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, resolutionPoints, sourceDire
 
 
 
-                                plt.plot(xFort, DeltaFort, label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
+
+
+
+                                #Calculate Delta with the fort.2002 file, which has the frequencies of all processors
+                                DeltaBigFort = np.zeros(len(inputBigFort))
+                                xBigFort = np.zeros(len(inputBigFort))
+                                for i in range(len(inputBigFort)):
+                                    DeltaBigFort[i] = - inputBigFort[i, 0] * (inputBigFort[i, 0] + inputBigFort[i, 2]/(inputBigFort[i, 1] * inputBigFort[i, 1] + inputBigFort[i, 2] * inputBigFort[i, 2]))         \
+                                                   - inputBigFort[i, 0] * (u*1/2) - u*u * 1/2 * (1 - 1/2)                     #calculate Im(Delta) = i\nu - 1/G_loc(i\nu) - Sigma(i\nu)       n=1 in Sigma for half filling
+                                    xBigFort[i] = inputBigFort[i, 0]
+
+                                plt.plot(xBigFort[-resolutionPoints:], DeltaBigFort[-resolutionPoints:], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
                                 plt.xlabel(r'$i\nu$')
                                 plt.ylabel(r'$\Delta(i\nu)$')
                                 plt.legend()
-                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotFullFort1002_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
+                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotFort2002_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
                                 plt.clf()
 
-
-                                plt.plot(xFort, DeltaFort, label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
+                                plt.plot(xBigFort, DeltaBigFort, label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
                                 plt.xlabel(r'$i\nu$')
                                 plt.ylabel(r'$\Delta(i\nu)$')
                                 plt.legend()
-                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotFullFort1002_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
+                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotFullFort2002_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
                                 plt.clf()
 
 
-                                plt.plot(xFort, DeltaFort, label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm), marker = '+')
-                                plt.xlabel(r'$i\nu$')
-                                plt.ylabel(r'$\Delta(i\nu)$')
-                                plt.legend()
-                                plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotFullFort1002_B{}_P{}_L{}_steps{}_Ns{}_symm{}.png".format(beta, p, l, steps, ns, symm))
-                                plt.clf()
 
 
+
+                                '''
                                 if symm:                        #only have to do it once
                                     #Calculate Delta for True
                                     inputTrue = np.loadtxt(sourceDirectory + '/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/g0mand'.format(beta, u, u/2, p, l, steps, ns, True))
@@ -143,7 +154,7 @@ def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, resolutionPoints, sourceDire
                                     plt.legend()
                                     plt.savefig(targetDirectory  + "/tests/hybridizationFunctions/hybridPlotDiffG0mand_B{}_P{}_L{}_steps{}_Ns{}_symmTrue-False.png".format(beta, p, l, steps, ns))
                                     plt.clf()
-
+                                '''
 
 
 
