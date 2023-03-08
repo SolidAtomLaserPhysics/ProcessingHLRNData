@@ -212,7 +212,6 @@ def plotSigma(Beta, P, L, U, KSteps, Ns, Symm, sourceDirectory, targetDirectory)
                         for ns in Ns:
                             for symm in Symm:
                                 dataToRead = np.loadtxt(sourceDirectory + '/B{}_U{}_Mu{}_P{}_L{}_steps{}_Ns{}_symm{}/ed_dmft/self-en_wim'.format(beta, u, u/2, p, l, steps, ns, symm))
-                                print(size(dataToRead))
                                 MatsubaraFreq = dataToRead[:, 0]
                                 RealPart = dataToRead[:, 1]
                                 ImagPart = dataToRead[:, 2]
