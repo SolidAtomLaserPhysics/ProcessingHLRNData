@@ -85,7 +85,7 @@ def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, resolutionPoints, sourceDire
                                 # but using self-en_wim instead of the theoretical value of Sigma
                                 DeltaBigFortSigma = np.zeros(len(inputBigFort))
                                 xBigFortSigma = np.zeros(len(inputBigFort))
-                                for i in range(len(inputBigFort)):
+                                for i in range(len(inputSigma)):
                                     DeltaBigFortSigma[i] = - inputBigFort[i, 0] * (inputBigFort[i, 0] + inputBigFort[i, 2]/(inputBigFort[i, 1] * inputBigFort[i, 1] + inputBigFort[i, 2] * inputBigFort[i, 2]))         \
                                                       - inputBigFort[i, 0] * inputSigma[i, 2]                    #calculate Im(Delta) = i\nu - 1/G_loc(i\nu) - Sigma(i\nu)       n=1 in Sigma for half filling
                                     xBigFortSigma[i] = inputBigFort[i, 0]
