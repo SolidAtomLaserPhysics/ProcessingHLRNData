@@ -81,13 +81,14 @@ def plotHybridFunc(Beta, P, L, U, KSteps, Ns, Symm, resolutionPoints, sourceDire
 
 
 
-                                #Calculate Delta with the fort.1002 file, which only has the frequencies of the first processor, 
+                                #Calculate Delta with the fort.2002 file, which has the frequencies of all processor, 
                                 # but using self-en_wim instead of the theoretical value of Sigma
-                                DeltaBigFortSigma = np.zeros(len(inputBigFort))
-                                xBigFortSigma = np.zeros(len(inputBigFort))
+                                # we are only using the first iteration in fort.2002 since self-en_wim is only that long
+                                DeltaBigFortSigma = np.zeros(len(inputSigma))
+                                xBigFortSigma = np.zeros(len(inputSigma))
                                 for i in range(len(inputSigma)):
                                     DeltaBigFortSigma[i] = - inputBigFort[i, 0] * (inputBigFort[i, 0] + inputBigFort[i, 2]/(inputBigFort[i, 1] * inputBigFort[i, 1] + inputBigFort[i, 2] * inputBigFort[i, 2]))         \
-                                                      - inputBigFort[i, 0] * inputSigma[i, 2]                    #calculate Im(Delta) = i\nu - 1/G_loc(i\nu) - Sigma(i\nu)       n=1 in Sigma for half filling
+                                                      + inputBigFort[i, 0] * inputSigma[i, 2]                    #calculate Im(Delta) = i\nu - 1/G_loc(i\nu) - Sigma(i\nu)       n=1 in Sigma for half filling
                                     xBigFortSigma[i] = inputBigFort[i, 0]
 
                                 plt.plot(xBigFortSigma[-resolutionPoints:], DeltaBigFortSigma[-resolutionPoints:], label = r'$\beta = {}, p = {}, L = {}, Ksteps = {}, Ns = {}, symmetry = {}$'.format(beta, p, l, steps, ns, symm),linewidth=0.5)
